@@ -6,4 +6,8 @@ public class JWTTokenProvider {
 
     @Value("jwt.secret")
     private String secret;
+
+    {
+        System.out.println(secret);
+    }
 }
