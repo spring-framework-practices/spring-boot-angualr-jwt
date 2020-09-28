@@ -2,7 +2,9 @@ package com.trl.springbootspringsecurityangularjwt.user;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserConverter {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserConverter.class);
@@ -34,7 +36,7 @@ public class UserConverter {
                 .withLastLoginDate(entity.getLastLoginDate())
                 .withLastLoginDateDisplay(entity.getLastLoginDateDisplay())
                 .withJoinDate(entity.getJoinDate())
-                .withRoles(entity.getRoles())
+                .withRole(entity.getRole())
                 .withAuthorities(entity.getAuthorities())
                 .isActive(entity.isActive())
                 .isNotLocked(entity.isNotLocked())
@@ -69,7 +71,7 @@ public class UserConverter {
                 .withLastLoginDate(dto.getLastLoginDate())
                 .withLastLoginDateDisplay(dto.getLastLoginDateDisplay())
                 .withJoinDate(dto.getJoinDate())
-                .withRoles(dto.getRoles())
+                .withRole(dto.getRole())
                 .withAuthorities(dto.getAuthorities())
                 .isActive(dto.isActive())
                 .isNotLocked(dto.isNotLocked())

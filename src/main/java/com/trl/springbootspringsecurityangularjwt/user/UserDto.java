@@ -1,26 +1,38 @@
 package com.trl.springbootspringsecurityangularjwt.user;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class UserDto implements Serializable {
 
     private Long id;
     private String userId;
+
+    @NotBlank(message = "First Name is mandatory.")
     private String firstName;
+
+    @NotBlank(message = "Last Name is mandatory.")
     private String lastName;
+
+    @NotBlank(message = "Username Name is mandatory.")
     private String username;
+
     private String password;
+
+    @Email
+    @NotBlank(message = "Email Address is mandatory.")
     private String email;
+
     private String profileImageUrl;
-    private Date lastLoginDate;
-    private Date lastLoginDateDisplay;
-    private Date joinDate;
-    private List<UserRole> roles;
-    private List<UserAuthority> authorities;
+    private LocalDateTime lastLoginDate;
+    private LocalDateTime lastLoginDateDisplay;
+    private LocalDateTime joinDate;
+    private String role;
+    private String[] authorities;
     private boolean isActive;
     private boolean isNotLocked;
 
@@ -39,7 +51,7 @@ public class UserDto implements Serializable {
         this.lastLoginDate = builder.lastLoginDate;
         this.lastLoginDateDisplay = builder.lastLoginDateDisplay;
         this.joinDate = builder.joinDate;
-        this.roles = builder.roles;
+        this.role = builder.role;
         this.authorities = builder.authorities;
         this.isActive = builder.isActive;
         this.isNotLocked = builder.isNotLocked;
@@ -109,43 +121,43 @@ public class UserDto implements Serializable {
         this.profileImageUrl = profileImageUrl;
     }
 
-    public Date getLastLoginDate() {
+    public LocalDateTime getLastLoginDate() {
         return lastLoginDate;
     }
 
-    public void setLastLoginDate(Date lastLoginDate) {
+    public void setLastLoginDate(LocalDateTime lastLoginDate) {
         this.lastLoginDate = lastLoginDate;
     }
 
-    public Date getLastLoginDateDisplay() {
+    public LocalDateTime getLastLoginDateDisplay() {
         return lastLoginDateDisplay;
     }
 
-    public void setLastLoginDateDisplay(Date lastLoginDateDisplay) {
+    public void setLastLoginDateDisplay(LocalDateTime lastLoginDateDisplay) {
         this.lastLoginDateDisplay = lastLoginDateDisplay;
     }
 
-    public Date getJoinDate() {
+    public LocalDateTime getJoinDate() {
         return joinDate;
     }
 
-    public void setJoinDate(Date joinDate) {
+    public void setJoinDate(LocalDateTime joinDate) {
         this.joinDate = joinDate;
     }
 
-    public List<UserRole> getRoles() {
-        return roles;
+    public String getRole() {
+        return role;
     }
 
-    public void setRoles(List<UserRole> roles) {
-        this.roles = roles;
+    public void setRole(String role) {
+        this.role = role;
     }
 
-    public List<UserAuthority> getAuthorities() {
+    public String[] getAuthorities() {
         return authorities;
     }
 
-    public void setAuthorities(List<UserAuthority> authorities) {
+    public void setAuthorities(String[] authorities) {
         this.authorities = authorities;
     }
 
@@ -183,13 +195,15 @@ public class UserDto implements Serializable {
                 Objects.equals(lastLoginDate, userDto.lastLoginDate) &&
                 Objects.equals(lastLoginDateDisplay, userDto.lastLoginDateDisplay) &&
                 Objects.equals(joinDate, userDto.joinDate) &&
-                Objects.equals(roles, userDto.roles) &&
-                Objects.equals(authorities, userDto.authorities);
+                Objects.equals(role, userDto.role) &&
+                Arrays.equals(authorities, userDto.authorities);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, firstName, lastName, username, password, email, profileImageUrl, lastLoginDate, lastLoginDateDisplay, joinDate, roles, authorities, isActive, isNotLocked);
+        int result = Objects.hash(id, userId, firstName, lastName, username, password, email, profileImageUrl, lastLoginDate, lastLoginDateDisplay, joinDate, role, isActive, isNotLocked);
+        result = 31 * result + Arrays.hashCode(authorities);
+        return result;
     }
 
     @Override
@@ -206,8 +220,8 @@ public class UserDto implements Serializable {
                 ", lastLoginDate=" + lastLoginDate +
                 ", lastLoginDateDisplay=" + lastLoginDateDisplay +
                 ", joinDate=" + joinDate +
-                ", roles=" + roles +
-                ", authorities=" + authorities +
+                ", role='" + role + '\'' +
+                ", authorities=" + Arrays.toString(authorities) +
                 ", isActive=" + isActive +
                 ", isNotLocked=" + isNotLocked +
                 '}';
@@ -222,115 +236,79 @@ public class UserDto implements Serializable {
         private String password;
         private String email;
         private String profileImageUrl;
-        private Date lastLoginDate;
-        private Date lastLoginDateDisplay;
-        private Date joinDate;
-        private List<UserRole> roles;
-        private List<UserAuthority> authorities;
+        private LocalDateTime lastLoginDate;
+        private LocalDateTime lastLoginDateDisplay;
+        private LocalDateTime joinDate;
+        private String role;
+        private String[] authorities;
         private boolean isActive;
         private boolean isNotLocked;
 
+        public Builder() {
+        }
+
         public Builder withId(Long id) {
-            if (id == null) {
-                throw new IllegalArgumentException("Parameter 'id' must be not equals to null.");
-            }
             this.id = id;
             return this;
         }
 
         public Builder withUserId(String userId) {
-            if (userId == null) {
-                throw new IllegalArgumentException("Parameter 'userId' must be not equals to null.");
-            }
             this.userId = userId;
             return this;
         }
 
         public Builder withFirstName(String firstName) {
-            if (firstName == null) {
-                throw new IllegalArgumentException("Parameter 'firstName' must be not equals to null.");
-            }
             this.firstName = firstName;
             return this;
         }
 
         public Builder withLastName(String lastName) {
-            if (lastName == null) {
-                throw new IllegalArgumentException("Parameter 'lastName' must be not equals to null.");
-            }
             this.lastName = lastName;
             return this;
         }
 
         public Builder withUsername(String username) {
-            if (username == null) {
-                throw new IllegalArgumentException("Parameter 'username' must be not equals to null.");
-            }
             this.username = username;
             return this;
         }
 
         public Builder withPassword(String password) {
-            if (password == null) {
-                throw new IllegalArgumentException("Parameter 'password' must be not equals to null.");
-            }
             this.password = password;
             return this;
         }
 
         public Builder withEmail(String email) {
-            if (email == null) {
-                throw new IllegalArgumentException("Parameter 'email' must be not equals to null.");
-            }
             this.email = email;
             return this;
         }
 
         public Builder withProfileImageUrl(String profileImageUrl) {
-            if (profileImageUrl == null) {
-                throw new IllegalArgumentException("Parameter 'profileImageUrl' must be not equals to null.");
-            }
             this.profileImageUrl = profileImageUrl;
             return this;
         }
 
-        public Builder withLastLoginDate(Date lastLoginDate) {
-            if (lastLoginDate == null) {
-                throw new IllegalArgumentException("Parameter 'lastLoginDate' must be not equals to null.");
-            }
+        public Builder withLastLoginDate(LocalDateTime lastLoginDate) {
             this.lastLoginDate = lastLoginDate;
             return this;
         }
 
-        public Builder withLastLoginDateDisplay(Date lastLoginDateDisplay) {
-            if (lastLoginDateDisplay == null) {
-                throw new IllegalArgumentException("Parameter 'lastLoginDateDisplay' must be not equals to null.");
-            }
+        public Builder withLastLoginDateDisplay(LocalDateTime lastLoginDateDisplay) {
             this.lastLoginDateDisplay = lastLoginDateDisplay;
             return this;
         }
 
-        public Builder withJoinDate(Date joinDate) {
-            if (joinDate == null) {
-                throw new IllegalArgumentException("Parameter 'joinDate' must be not equals to null.");
-            }
+        public Builder withJoinDate(LocalDateTime joinDate) {
             this.joinDate = joinDate;
             return this;
         }
 
-        public Builder withRoles(List<UserRole> roles) {
-            if (roles == null) {
-                throw new IllegalArgumentException("Parameter 'roles' must be not equals to null.");
-            }
-            this.roles = new ArrayList<>(roles);
+        public Builder withRole(String role) {
+            this.role = role;
             return this;
         }
 
-        public Builder withAuthorities(List<UserAuthority> authorities) {
-            if (authorities == null) {
-                throw new IllegalArgumentException("Parameter 'authorities' must be not equals to null.");
-            }
-            this.authorities = new ArrayList<>(authorities);
+        public Builder withAuthorities(String[] authorities) {
+            this.authorities = authorities;
             return this;
         }
 
