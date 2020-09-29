@@ -8,9 +8,9 @@ services:
       POSTGRES_USER: "developer"
       POSTGRES_PASSWORD: "password"
       POSTGRES_DB: "spring-boot-spring-security-angular-jwt-db"
-      PGDATA: /data/postgres
-    volumes:
-      - postgres:/data/postgres
+#      PGDATA: /data/postgres
+#    volumes:
+#      - postgres:/data/postgres
     ports:
       - "5432:5432"
     networks:
@@ -35,53 +35,6 @@ networks:
   postgres:
     driver: bridge
 
-volumes:
-  postgres:
+#volumes:
+#  postgres:
 #  pgadmin:
-
-
-
-
-#version: '3.2'
-#
-#services:
-#
-#   Launch PostgreSQL Database.
-#  postgresDB:
-#    image: postgres
-#    restart: always
-#    ports:
-#      - "5432:5432"
-#    environment:
-#      TZ: "Europe/Madrid"
-#      POSTGRES_USER: "developer"
-#      POSTGRES_PASSWORD: "strong_password"
-#      POSTGRES_DB: "spring-boot-spring-security-angular-jwt-db"
-
-
-
-
-
-
-#version: '3.2'
-#
-#services:
-#
-#   Launch PostgreSQL Database.
-#  postgresDB:
-#    image: postgres
-#    restart: always
-#    ports:
-#      - "5432:5432"
-#    networks:
-#      - somenetwork
-#    environment:
-#      TZ: "Europe/Madrid"
-#      POSTGRES_USER: "developer"
-#      POSTGRES_PASSWORD: "strong_password"
-#      POSTGRES_DB: "quarkus-user-service-db-prod"
-#
-#networks:
-#  somenetwork:
-#    driver: bridge
-

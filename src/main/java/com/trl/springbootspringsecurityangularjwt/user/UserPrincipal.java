@@ -19,7 +19,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return stream(this.user.getAuthorities())
+        return stream(this.user.getAuthorities().getValue())
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }

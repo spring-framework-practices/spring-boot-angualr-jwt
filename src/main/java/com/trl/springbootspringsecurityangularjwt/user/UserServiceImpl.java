@@ -7,6 +7,7 @@ import com.trl.springbootspringsecurityangularjwt.exception.domain.UsernameExist
 
 import static com.trl.springbootspringsecurityangularjwt.constant.FileConstant.DEFAULT_USER_IMAGE_PATH;
 import static com.trl.springbootspringsecurityangularjwt.constant.UserImplConstant.*;
+import static com.trl.springbootspringsecurityangularjwt.enumeration.Authority.USER_AUTHORITIES;
 import static com.trl.springbootspringsecurityangularjwt.enumeration.Role.ROLE_USER;
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -21,11 +22,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import static java.lang.String.format;
-import static org.apache.commons.lang3.StringUtils.*;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -65,8 +65,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 .withEmail(email)
                 .withProfileImageUrl(getTemporaryProfileImageUrl(username))
                 .withJoinDate(LocalDateTime.now())
-                .withRole(ROLE_USER.name())
-                .withAuthorities(ROLE_USER.getAuthorities())
+                .withRole(ROLE_USER)
+                .withAuthorities(USER_AUTHORITIES)
                 .isActive(true)
                 .isNotLocked(true)
                 .build();

@@ -1,14 +1,14 @@
 package com.trl.springbootspringsecurityangularjwt.enumeration;
 
-import static com.trl.springbootspringsecurityangularjwt.constant.Authority.*;
+import static com.trl.springbootspringsecurityangularjwt.enumeration.Authority.*;
 
 public enum Role {
 
-    ROLE_USER(USER_AUTHORITIES),
-    ROLE_HR(HR_AUTHORITIES),
-    ROLE_MANAGER(MANAGER_AUTHORITIES),
-    ROLE_ADMIN(ADMIN_AUTHORITIES),
-    ROLE_SUPER_ADMIN(SUPER_ADMIN_AUTHORITIES);
+    ROLE_USER(USER_AUTHORITIES.getValue()),
+    ROLE_HR(HR_AUTHORITIES.getValue()),
+    ROLE_MANAGER(MANAGER_AUTHORITIES.getValue()),
+    ROLE_ADMIN(ADMIN_AUTHORITIES.getValue()),
+    ROLE_SUPER_ADMIN(SUPER_ADMIN_AUTHORITIES.getValue());
 
     private final String[] authorities;
 

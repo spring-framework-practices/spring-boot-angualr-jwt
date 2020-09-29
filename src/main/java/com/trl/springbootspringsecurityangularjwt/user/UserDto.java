@@ -1,10 +1,12 @@
 package com.trl.springbootspringsecurityangularjwt.user;
 
+import com.trl.springbootspringsecurityangularjwt.enumeration.Authority;
+import com.trl.springbootspringsecurityangularjwt.enumeration.Role;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.Objects;
 
 public class UserDto implements Serializable {
@@ -31,8 +33,8 @@ public class UserDto implements Serializable {
     private LocalDateTime lastLoginDate;
     private LocalDateTime lastLoginDateDisplay;
     private LocalDateTime joinDate;
-    private String role;
-    private String[] authorities;
+    private Role role;
+    private Authority authorities;
     private boolean isActive;
     private boolean isNotLocked;
 
@@ -145,19 +147,19 @@ public class UserDto implements Serializable {
         this.joinDate = joinDate;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
-    public String[] getAuthorities() {
+    public Authority getAuthorities() {
         return authorities;
     }
 
-    public void setAuthorities(String[] authorities) {
+    public void setAuthorities(Authority authorities) {
         this.authorities = authorities;
     }
 
@@ -195,15 +197,13 @@ public class UserDto implements Serializable {
                 Objects.equals(lastLoginDate, userDto.lastLoginDate) &&
                 Objects.equals(lastLoginDateDisplay, userDto.lastLoginDateDisplay) &&
                 Objects.equals(joinDate, userDto.joinDate) &&
-                Objects.equals(role, userDto.role) &&
-                Arrays.equals(authorities, userDto.authorities);
+                role == userDto.role &&
+                authorities == userDto.authorities;
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(id, userId, firstName, lastName, username, password, email, profileImageUrl, lastLoginDate, lastLoginDateDisplay, joinDate, role, isActive, isNotLocked);
-        result = 31 * result + Arrays.hashCode(authorities);
-        return result;
+        return Objects.hash(id, userId, firstName, lastName, username, password, email, profileImageUrl, lastLoginDate, lastLoginDateDisplay, joinDate, role, authorities, isActive, isNotLocked);
     }
 
     @Override
@@ -220,8 +220,8 @@ public class UserDto implements Serializable {
                 ", lastLoginDate=" + lastLoginDate +
                 ", lastLoginDateDisplay=" + lastLoginDateDisplay +
                 ", joinDate=" + joinDate +
-                ", role='" + role + '\'' +
-                ", authorities=" + Arrays.toString(authorities) +
+                ", role=" + role +
+                ", authorities=" + authorities +
                 ", isActive=" + isActive +
                 ", isNotLocked=" + isNotLocked +
                 '}';
@@ -239,8 +239,8 @@ public class UserDto implements Serializable {
         private LocalDateTime lastLoginDate;
         private LocalDateTime lastLoginDateDisplay;
         private LocalDateTime joinDate;
-        private String role;
-        private String[] authorities;
+        private Role role;
+        private Authority authorities;
         private boolean isActive;
         private boolean isNotLocked;
 
@@ -302,12 +302,12 @@ public class UserDto implements Serializable {
             return this;
         }
 
-        public Builder withRole(String role) {
+        public Builder withRole(Role role) {
             this.role = role;
             return this;
         }
 
-        public Builder withAuthorities(String[] authorities) {
+        public Builder withAuthorities(Authority authorities) {
             this.authorities = authorities;
             return this;
         }

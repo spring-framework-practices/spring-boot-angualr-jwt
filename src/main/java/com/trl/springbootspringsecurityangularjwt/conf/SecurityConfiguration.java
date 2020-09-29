@@ -1,6 +1,5 @@
 package com.trl.springbootspringsecurityangularjwt.conf;
 
-import com.trl.springbootspringsecurityangularjwt.constant.SecurityConstant;
 import com.trl.springbootspringsecurityangularjwt.filter.JwtAccessDeniedHandler;
 import com.trl.springbootspringsecurityangularjwt.filter.JwtAuthenticationEntryPoint;
 import com.trl.springbootspringsecurityangularjwt.filter.JwtAuthorizationFilter;
