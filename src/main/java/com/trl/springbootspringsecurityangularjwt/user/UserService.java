@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface UserService {
 
-    UserDto register(String firstName, String lastName, String username, String email) throws MessagingException;
+    UserDto register(String firstName, String lastName, String username, String email);
 
     List<UserDto> getUsers();
 

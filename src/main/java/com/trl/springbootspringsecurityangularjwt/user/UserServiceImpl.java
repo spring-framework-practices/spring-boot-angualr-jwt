@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Transactional
     @Override
-    public UserDto register(String firstName, String lastName, String username, String email) throws MessagingException {
+    public UserDto register(String firstName, String lastName, String username, String email) {
         UserDto userResult = null;
         LOGGER.debug(REGISTER_LOGGER_HEADER + "firstName = " + firstName + " lastName = " + lastName + " username = " + username + " email = " + email);
         if (isBlank(firstName) || isBlank(lastName) || isBlank(username) || isBlank(email)) {
@@ -84,7 +84,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         UserEntity savedUser = userRepository.save(userConverter.mapDtoToEntity(userDto));
         userResult = userConverter.mapEntityToDto(savedUser);
         LOGGER.debug(REGISTER_LOGGER_HEADER + "registered user = " + userResult);
-        emailService.sendNewPasswordEmail(firstName, password, email);
+        try {
+            emailService.sendNewPasswordEmail(firstName, password, email);
+        } catch (MessagingException e) {
+            LOGGER.error(REGISTER_LOGGER_HEADER + e.getMessage());
+            e.printStackTrace();
+        }
         return userResult;
     }
 
