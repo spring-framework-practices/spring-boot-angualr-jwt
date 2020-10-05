@@ -1,0 +1,8 @@
+spring:
+  profiles: 'test'
+  application:
+    name: 'spring-boot-spring-security-angular-jwt-test'
+
+  cloud:
+    config:
+      uri: 'http://localhost:8888'
